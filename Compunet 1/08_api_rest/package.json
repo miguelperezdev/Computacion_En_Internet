@@ -1,0 +1,19 @@
+{
+  "name": "08_api_rest",
+  "version": "1.0.0",
+  "description": "```bash $ npm init -y  $ ls  package.json ```",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

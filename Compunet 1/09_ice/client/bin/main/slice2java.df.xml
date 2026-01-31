@@ -1,0 +1,15 @@
+<state>
+  <timestamp value='1762439730283' />
+  <sourceSet name='default'>
+    <source name='/home/i2t/Git/icesi/2025-2/computacion1/Computacion-1-2025-2/09_ice/App.ice'>
+      <file name='/home/i2t/Git/icesi/2025-2/computacion1/Computacion-1-2025-2/09_ice/client/build/generated-src/Demo/Suscriber.java' />
+      <file name='/home/i2t/Git/icesi/2025-2/computacion1/Computacion-1-2025-2/09_ice/client/build/generated-src/Demo/Publisher.java' />
+      <file name='/home/i2t/Git/icesi/2025-2/computacion1/Computacion-1-2025-2/09_ice/client/build/generated-src/Demo/SuscriberPrx.java' />
+      <file name='/home/i2t/Git/icesi/2025-2/computacion1/Computacion-1-2025-2/09_ice/client/build/generated-src/Demo/_SuscriberPrxI.java' />
+      <file name='/home/i2t/Git/icesi/2025-2/computacion1/Computacion-1-2025-2/09_ice/client/build/generated-src/Demo/PublisherPrx.java' />
+      <file name='/home/i2t/Git/icesi/2025-2/computacion1/Computacion-1-2025-2/09_ice/client/build/generated-src/Demo/_PublisherPrxI.java' />
+    </source>
+    <arg value='/usr/bin/slice2java' />
+    <arg value='-I/usr/share/ice/slice' />
+  </sourceSet>
+</state>

@@ -1,0 +1,2 @@
+Suscriber.Endpoints = default -p 6001 -h  localhost // 192.168.131.22 // exponiendo en servicio 
+publisher.proxy = Publisher:default -p 5000 -h localhost // 192.168.131.123 // recuperando un servicio 
