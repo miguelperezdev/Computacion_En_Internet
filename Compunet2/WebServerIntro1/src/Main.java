@@ -10,7 +10,7 @@ import java.nio.file.*;
  */
 public class Main {
     private static int PORT = 8080; // Puerto configurable mayor a 1024
-    private static final String BASE_DIR = "www"; // Directorio base para archivos
+    private static final String BASE_DIR = "src/www"; // Directorio base para archivos
     private static final String ERROR_404_PAGE = "error404.html";
     private static boolean running = true;
 
