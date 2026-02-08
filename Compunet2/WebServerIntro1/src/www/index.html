@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Servidor HTTP Multihilo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .features {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        ul {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🎉 ¡Servidor HTTP Funcionando!</h1>
+    <p>Este es un servidor web multihilo escrito en Java que cumple con todos los requisitos:</p>
+
+    <div class="features">
+        <h3>✅ Características implementadas:</h3>
+        <ul>
+            <li>Escucha en puerto configurable (>1024)</li>
+            <li>Arquitectura multihilo (un hilo por solicitud)</li>
+            <li>Soporte HTTP/1.0 con método GET</li>
+            <li>Muestra solicitudes por consola</li>
+            <li>Respuestas HTTP válidas con CRLF</li>
+            <li>Soporte para HTML, JPG, GIF y más</li>
+            <li>Manejo de errores 404</li>
+            <li>Cierre seguro de recursos</li>
+        </ul>
+    </div>
+
+    <h3>🔗 Enlaces de prueba:</h3>
+    <ul>
+        <li><a href="/">Página principal (esta)</a></li>
+        <li><a href="/test.html">Página de prueba</a></li>
+        <li><a href="/noexiste.html">Recurso inexistente (404)</a></li>
+    </ul>
+
+    <h3>📝 Información del servidor:</h3>
+    <p><strong>Hora actual:</strong> <span id="time"></span></p>
+    <p><strong>Desarrollado en:</strong> Java puro (sin frameworks)</p>
+
+    <hr>
+    <p><small>Servidor HTTP Multihilo - Trabajo de Computación en Internet</small></p>
+</div>
+
+<script>
+    // Mostrar hora actual
+    document.getElementById('time').textContent = new Date().toLocaleString();
+</script>
+</body>
+</html>
