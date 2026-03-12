@@ -7,5 +7,12 @@ import java.util.List;
 
 public interface ProfessorRepository extends CrudRepository<Professor, Long> {
 
-    List<Professor> findByNameContainingIgnoreCase(String name);
+    //2profesores  nombre contenga cadena
+    List<Professor> findByNameContainingIgnoreCase(String segment);
+
+    //10Encontrar  todos los profesores
+    List<Professor> findByCourses_Enrollments_Student_Program(String program);
+
+
+
 }

@@ -1,5 +1,6 @@
 package edu.co.icesi.introspringboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Course {
     @ManyToOne
     @JoinColumn(name = "professor_id")
     private Professor professor;
+
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Enrollment> enrollments;

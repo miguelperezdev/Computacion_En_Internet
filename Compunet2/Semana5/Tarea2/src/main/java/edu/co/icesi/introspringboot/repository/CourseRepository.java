@@ -9,6 +9,13 @@ import java.util.Optional;
 public interface CourseRepository extends CrudRepository<Course, Long> {
     List<Course> findByName(String name);
 
-    // con el _ se accedee a las propiedades del profesor, este es un paso para la consulta de la DB
-    List<Course> findByProfessor_NameOrderByName(String name);
+    List<Course> getCoursesByCredits(int credits);
+
+    Optional<Course> findCourseByNameIgnoreCase(String name);
+
+    List<Course> findCoursesByProfessor_NameOrderByNameAsc(String professorName);
+
+    List<Course> getCoursesByCreditsBetween(int creditsAfter, int creditsBefore);
+
+
 }

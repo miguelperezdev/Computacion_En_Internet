@@ -11,10 +11,17 @@ import java.util.Optional;
 public interface StudentRepository
         extends JpaRepository<Student, Integer> {
 
-    // En sql serian SELEC * FROM student WHERE code = "A00406258"
+    // 1 estudiante por su code
     Optional<Student> findByCode(String code);
 
+    // 4 estudiantes de un programa
     List<Student> findByProgram(String program);
+
+    //7  estudiantes de un programa que codigo empiece por un prefijo dado.
+    List<Student> getStudentsByCodeStartingWith(String code);
+
+    //9 estudiantes que cursan materias con un profesor.
+    List<Student> findByEnrollments_Course_Professor_Name(String name);
 
 
 }

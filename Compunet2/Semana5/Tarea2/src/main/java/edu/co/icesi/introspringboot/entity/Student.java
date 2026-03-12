@@ -17,7 +17,6 @@ public class Student {
     private String code;
 
     private String program;
-
     @JsonIgnore
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Enrollment> enrollments;
