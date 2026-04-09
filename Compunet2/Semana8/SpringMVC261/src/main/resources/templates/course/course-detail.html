@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalle del Estudiante</title>
+</head>
+<body>
+<!-- Verificamos si el estudiante existe para evitar errores -->
+<div th:if="${course}">
+    <h2 th:text="${course.name}">Nombre del Estudiante</h2>
+    <p>
+        <strong>Créditos:</strong>
+        <span th:text="${course.credits}">0</span>
+    </p>
+
+    <hr>
+    <a th:href="@{/course/list}">Volver a la lista</a>
+</div>
+
+<div th:unless="${course}">
+    <h2>Estudiante no encontrado</h2>
+    <p>El estudiante que buscas no existe.</p>
+    <a th:href="@{/course}">Volver a la lista</a>
+</div>
+</body>
+</html>
