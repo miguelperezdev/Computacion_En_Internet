@@ -1,0 +1,18 @@
+package edu.co.icesi.introspringboot.repository;
+
+import edu.co.icesi.introspringboot.entity.Permission;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+public interface PermissionRepository extends JpaRepository<Permission, Integer> {
+
+    Optional<Permission> findByPublicId(UUID publicId);
+
+    boolean existsByPublicId(UUID publicId);
+
+    List<Permission> findByRolePermissions_Role_UserRoles_User_Username(String username);
+
+}

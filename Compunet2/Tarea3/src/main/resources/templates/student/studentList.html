@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Lista de estudiantes</h1>
+   <form th:action="@{/student/save}"
+         method="post"
+         th:object="${newstudent}">
+       <input type="text" th:field="*{name}" placeholder="Nombre"><br>
+       <input type="text" th:field="*{program}" placeholder="Programa"><br>
+       <input type="text" th:field="*{code}" placeholder="Código"><br>
+       <button>Save</button>
+   </form>
+
+    <ol>
+        <li th:each="student :${students}">
+            <span th:text="${student.name}"></span><br>
+            <span th:text="${student.code}"></span><br>
+        </li>
+    </ol>
+
+</body>
+</html>

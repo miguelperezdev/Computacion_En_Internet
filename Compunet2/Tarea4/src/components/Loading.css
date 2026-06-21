@@ -1,0 +1,26 @@
+.loading {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 20px;
+}
+.loading__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 10px);
+  gap: 5px;
+}
+.loading__cell {
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 2px;
+  animation: fadeUp 0.8s ease infinite alternate;
+  opacity: 0.3;
+}
+.loading__text {
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+}
+.loading__sub { font-size: 13px; color: var(--text-muted); }

@@ -1,0 +1,103 @@
+.qcard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow: var(--shadow-md);
+  animation: fadeUp 0.3s ease both;
+  transition: border-color 0.2s;
+}
+.qcard--correct { border-color: #86efac; }
+.qcard--wrong   { animation: shake 0.3s ease; border-color: #fca5a5; }
+
+.qcard__category {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.qcard__question {
+  font-size: 18px;
+  font-weight: 500;
+  font-family: var(--display);
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.qcard__answers { display: flex; flex-direction: column; gap: 10px; }
+
+.qcard__answer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--text);
+  text-align: left;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+.qcard__answer:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: #eef1fe;
+}
+.qcard__answer:disabled { cursor: default; }
+
+.qcard__ans-letter {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--border);
+  border-radius: 6px;
+  width: 26px; height: 26px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.qcard__ans-text { flex: 1; line-height: 1.4; }
+.qcard__check { color: var(--correct); font-size: 15px; }
+.qcard__x     { color: var(--wrong);   font-size: 15px; }
+
+.answer--correct {
+  border-color: #86efac !important;
+  background: var(--correct-bg) !important;
+}
+.answer--correct .qcard__ans-letter { background: #16a34a; color: #fff; }
+
+.answer--wrong {
+  border-color: #fca5a5 !important;
+  background: var(--wrong-bg) !important;
+}
+.answer--wrong .qcard__ans-letter { background: #dc2626; color: #fff; }
+
+.answer--correct-hint {
+  border-color: #86efac !important;
+  background: var(--correct-bg) !important;
+  opacity: 0.7;
+}
+.answer--dimmed { opacity: 0.35; }
+
+.qcard__feedback {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 14px;
+  border-radius: 8px;
+  animation: fadeUp 0.2s ease both;
+}
+.qcard__feedback--correct {
+  color: var(--correct);
+  background: var(--correct-bg);
+  border: 1px solid #bbf7d0;
+}
+.qcard__feedback--wrong {
+  color: var(--wrong);
+  background: var(--wrong-bg);
+  border: 1px solid #fecaca;
+}

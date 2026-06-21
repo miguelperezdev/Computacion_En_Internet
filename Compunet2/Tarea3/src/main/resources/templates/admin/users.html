@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin – Usuarios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-100">
+
+    <!-- Navbar -->
+    <nav class="bg-indigo-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 14l9-5-9-5-9 5 9 5z"/>
+                    </svg>
+                </div>
+                <span class="text-white font-bold text-lg">Campus Portal</span>
+                <span class="text-indigo-300 text-sm">/ Panel de Administración</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <a th:href="@{/auth/profile}" class="text-sm text-indigo-300 hover:text-white transition">Mi perfil</a>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit"
+                            class="text-sm bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-lg transition">
+                        Cerrar sesión
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar + Content -->
+    <div class="max-w-7xl mx-auto px-4 py-8 flex gap-6">
+
+        <!-- Sidebar -->
+        <aside class="w-52 flex-shrink-0">
+            <nav class="bg-white rounded-xl shadow p-3 space-y-1">
+                <a th:href="@{/admin/users}"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-indigo-50 text-indigo-700 font-medium text-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    Usuarios
+                </a>
+                <a th:href="@{/admin/roles}"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                    Roles y Permisos
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main content -->
+        <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between mb-6">
+                <h1 class="text-2xl font-bold text-gray-900">Gestión de Usuarios</h1>
+                <span class="text-sm text-gray-400" th:text="${#lists.size(users)} + ' usuario(s)'"></span>
+            </div>
+
+            <!-- Users table -->
+            <div class="bg-white rounded-2xl shadow overflow-hidden">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="bg-gray-50 border-b border-gray-100">
+                            <th class="text-left px-6 py-4 font-semibold text-gray-600">Public ID</th>
+                            <th class="text-left px-6 py-4 font-semibold text-gray-600">Usuario</th>
+                            <th class="text-left px-6 py-4 font-semibold text-gray-600">Roles actuales</th>
+                            <th class="text-left px-6 py-4 font-semibold text-gray-600">Asignar rol</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-50">
+                        <tr th:each="u : ${users}" class="hover:bg-slate-50 transition">
+                            <!-- ID -->
+                            <td class="px-6 py-4 text-gray-400 font-mono text-xs" th:text="${u.publicId}"></td>
+
+                            <!-- Username -->
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-semibold text-xs"
+                                         th:text="${#strings.toUpperCase(#strings.substring(u.username,0,1))}"></div>
+                                    <span class="font-medium text-gray-800" th:text="${u.username}"></span>
+                                </div>
+                            </td>
+
+                            <!-- Roles actuales + quitar -->
+                            <td class="px-6 py-4">
+                                <div class="flex flex-wrap gap-1.5">
+                                    <th:block th:each="ur : ${u.userRoles}">
+                                        <span class="inline-flex items-center gap-1 bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-1 rounded-full">
+                                            <span th:text="${ur.role.name}"></span>
+                                            <form th:action="@{'/admin/users/' + ${u.publicId} + '/remove-role'}" method="post" class="inline">
+                                                <input type="hidden" name="rolePublicId" th:value="${ur.role.publicId}">
+                                                <button type="submit"
+                                                        class="ml-1 text-indigo-500 hover:text-red-600 transition font-bold leading-none"
+                                                        title="Quitar rol">×</button>
+                                            </form>
+                                        </span>
+                                    </th:block>
+                                    <span th:if="${#lists.isEmpty(u.userRoles)}"
+                                          class="text-gray-400 text-xs italic">Sin roles</span>
+                                </div>
+                            </td>
+
+                            <!-- Asignar rol -->
+                            <td class="px-6 py-4">
+                                <form th:action="@{'/admin/users/' + ${u.publicId} + '/assign-role'}" method="post"
+                                      class="flex items-center gap-2">
+                                    <select name="rolePublicId"
+                                            class="text-xs border border-gray-200 rounded-lg px-2 py-1.5 text-gray-700
+                                                   focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                                        <option th:each="r : ${roles}"
+                                                th:value="${r.publicId}"
+                                                th:text="${r.name}"></option>
+                                    </select>
+                                    <button type="submit"
+                                            class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg transition">
+                                        Asignar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div th:if="${#lists.isEmpty(users)}" class="text-center text-gray-400 py-12">
+                    No hay usuarios registrados.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

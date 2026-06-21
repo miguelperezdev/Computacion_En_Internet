@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Crear curso</h1>
+    <form method="post"
+          th:action="@{/course/save}"
+          th:object="${newcourse}"
+    >
+        <input
+                type="text"
+                placeholder="Nombre"
+                th:field="*{name}">
+        <br>
+        <input type="number"
+               placeholder="Créditos"
+                th:field="*{credits}">
+        <br>
+        <select name="professorPublicId">
+            <option th:each="professor : ${professors}"
+                    th:value="${professor.publicId}"
+                    th:text="${professor.name}">
+            </option>
+        </select>
+        <button>Crear</button>
+    </form>
+
+    <h1>Lista de cursos</h1>
+    <ol>
+        <li th:each="course :${courses}">
+            <a th:href="@{/course/{publicId}(publicId=${course.publicId})}"><span th:text="${course.name}"></span></a><br>
+            <span th:text="${course.professor.name}"></span><br>
+        </li>
+    </ol>
+
+</body>
+</html>
