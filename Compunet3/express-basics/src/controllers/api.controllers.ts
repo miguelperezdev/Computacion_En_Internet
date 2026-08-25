@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 export class ApiController {
     sayHello(request:Request, response:Response){
     

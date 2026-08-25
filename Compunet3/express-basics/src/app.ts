@@ -1,5 +1,6 @@
 import { Application } from "express";
 import express from "express";
+import router from "./routes/api.routes";
 export class App{
 
     private app: Application;
@@ -25,7 +26,7 @@ export class App{
     }
 
     router(){
-        this.app.use("/")
+        this.app.use("/", router)
     }
 
     //Listen para inicializar el servidor
