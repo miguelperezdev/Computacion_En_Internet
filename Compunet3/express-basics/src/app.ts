@@ -10,6 +10,8 @@ export class App{
         //inicializamos express
         this.app = express();
         this.middeleware();
+        this.settings
+        this.router
         // this.app.use(express.urlencoded({ extended: true }));
         // this.app.use(express.json());
     }
