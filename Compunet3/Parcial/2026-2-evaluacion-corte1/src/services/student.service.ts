@@ -49,7 +49,12 @@ class StudentService {
     //   - si no existe, crearlo y agregarlo a "created"
     // Un solo estudiante inválido NO debe tumbar el resto del lote: atrapa el error por estudiante, no solo por el arreglo completo.
     async bulkCreate(studentsData: StudentInput[]): Promise<BulkCreateResult>{
-        throw new Error("Not implemented");
+        
+        try {
+
+        }catch{
+
+        }
     }
 
     // TODO (Reto 2 - Search): implementar.
