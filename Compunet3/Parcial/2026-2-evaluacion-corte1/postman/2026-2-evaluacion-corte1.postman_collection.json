@@ -1,0 +1,157 @@
+{
+  "info": {
+    "name": "2026-2 Evaluación Corte 1",
+    "description": "Colección de Postman para la evaluación del corte 1. Incluye el CRUD base (ya funcional) y 3 peticiones de ejemplo para los retos que debes implementar: bulk create, search y delete.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8081",
+      "type": "string"
+    },
+    {
+      "key": "studentEmail",
+      "value": "ana.gomez@icesi.edu.co",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Students",
+      "item": [
+        {
+          "name": "Listar estudiantes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/students",
+              "host": ["{{baseUrl}}"],
+              "path": ["students"]
+            },
+            "description": "Devuelve todos los estudiantes almacenados en la base de datos."
+          },
+          "response": []
+        },
+        {
+          "name": "Crear estudiante",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ana Gómez\",\n  \"age\": 21,\n  \"email\": \"{{studentEmail}}\",\n  \"isActive\": true,\n  \"nickname\": \"Anita\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/students/create",
+              "host": ["{{baseUrl}}"],
+              "path": ["students", "create"]
+            },
+            "description": "Crea un estudiante nuevo. Si ya existe un estudiante con el mismo email, se devuelve un mensaje informativo en lugar de duplicarlo."
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar estudiante por email",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/students/{{studentEmail}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["students", "{{studentEmail}}"]
+            },
+            "description": "Busca un estudiante por su email. Devuelve null si no existe ninguno con ese correo."
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar estudiante",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ana Gómez Pérez\",\n  \"age\": 22,\n  \"email\": \"{{studentEmail}}\",\n  \"isActive\": true,\n  \"nickname\": \"Ani\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/students/update/{{studentEmail}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["students", "update", "{{studentEmail}}"]
+            },
+            "description": "Actualiza los datos de un estudiante existente identificado por email. Devuelve 400 si no se encuentra el estudiante."
+          },
+          "response": []
+        },
+        {
+          "name": "[Reto 1] Crear estudiantes en lote",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"name\": \"Carlos Ruiz\",\n    \"age\": 20,\n    \"email\": \"carlos.ruiz@icesi.edu.co\",\n    \"isActive\": true,\n    \"nickname\": \"Carlitos\"\n  },\n  {\n    \"name\": \"Laura Diaz\",\n    \"age\": 23,\n    \"email\": \"laura.diaz@icesi.edu.co\",\n    \"isActive\": false,\n    \"nickname\": \"Lau\"\n  }\n]"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/students/bulk",
+              "host": ["{{baseUrl}}"],
+              "path": ["students", "bulk"]
+            },
+            "description": "TODO: implementar POST /students/bulk. Debe crear todos los estudiantes válidos y reportar cuáles se saltaron (y por qué) en la respuesta."
+          },
+          "response": []
+        },
+        {
+          "name": "[Reto 2] Buscar estudiantes (filtros)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/students/search?isActive=true&minAge=20&maxAge=25&name=a",
+              "host": ["{{baseUrl}}"],
+              "path": ["students", "search"],
+              "query": [
+                { "key": "isActive", "value": "true" },
+                { "key": "minAge", "value": "20" },
+                { "key": "maxAge", "value": "25" },
+                { "key": "name", "value": "a" }
+              ]
+            },
+            "description": "TODO: implementar GET /students/search. Todos los query params son opcionales y combinables."
+          },
+          "response": []
+        },
+        {
+          "name": "[Reto 3] Eliminar estudiante",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/students/delete/{{studentEmail}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["students", "delete", "{{studentEmail}}"]
+            },
+            "description": "TODO: implementar DELETE /students/delete/:email. Debe responder 400 con { message: \"User {email} not found\" } si no existe."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
