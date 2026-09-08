@@ -50,10 +50,30 @@ class StudentService {
     // Un solo estudiante inválido NO debe tumbar el resto del lote: atrapa el error por estudiante, no solo por el arreglo completo.
     async bulkCreate(studentsData: StudentInput[]): Promise<BulkCreateResult>{
         
-        try {
+        try{
+            const result: BulkCreateResult = {
+                created:[],
+                skipped: []
+                };
 
-        }catch{
+            for (const studentData of studentsData) {
+                try {
+                    const existStudent: StudentDocument | null = await this.findByEmail(studentData.email);
+                    if (existStudent) {
+                        result.skipped.push({ email: studentData.email, reason: `User ${studentData.email} ya existe.` });
+                        continue;
+                    }
+                    const createStudent: StudentDocument = await StudentModel.create(studentData);
+                    result.created.push (createStudent);
+                } catch (error: any) {
+                    result.skipped.push({ email: studentData.email, reason: `Error creating user: ${error.message}` });
+                }
+            }
 
+            return result;
+        } catch (error) {
+            console.log(this.handleError(error));
+            throw error;
         }
     }
 

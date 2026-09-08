@@ -56,11 +56,12 @@ class StudentController{
 
     // TODO (Reto 1 - Bulk create): validar que request.body sea un arreglo y delegar en studentService.bulkCreate
     async bulkCreate(request: Request, response: Response){
-        try {
-            const 
+        try{
+            const students = await studentService.bulkCreate(request.body);
+            response.json(students);
+
         }catch{
-
-
+             response.status(400).json({ message: "el tipo de dato ingresado no es el apto" });
         }
         
     }
