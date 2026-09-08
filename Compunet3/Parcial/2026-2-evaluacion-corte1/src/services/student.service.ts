@@ -81,7 +81,30 @@ class StudentService {
     // Construye un filtro de Mongoose SOLO con los criterios presentes en el query (los ausentes no deben filtrar nada).
     // isActive: "true"/"false" -> boolean | minAge/maxAge -> rango con $gte/$lte sobre "age" | name -> coincidencia parcial case-insensitive con $regex
     async search(query: StudentSearchQuery): Promise<StudentDocument[]>{
-        throw new Error("Not implemented");
+        try{
+            const filter: any = {};
+            if (query.isActive !== undefined) {
+                filter.isActive = query.isActive === "true";
+            }
+            if (query.minAge !== undefined || query.maxAge !== undefined) {
+                filter.age = {};
+                if (query.minAge !== undefined) {
+                 filter.age.$gte = parseInt(query.minAge);
+                }
+                if (query.maxAge !== undefined) {
+                 filter.age.$lte = parseInt(query.maxAge);
+                }
+            }
+            if (query.name !== undefined) {
+                filter.name = { $regex:query.name, $options: "i" };
+            }
+
+            const students: StudentDocument[] = await StudentModel.find(filter);
+            return students;
+        }catch(error){
+            console.error("Error buscando estudiante:", error);
+            throw error;
+        }
     }
 
     // TODO (Reto 3 - Delete): implementar.
