@@ -79,7 +79,22 @@ class StudentController{
 
     // TODO (Reto 3 - Delete): validar el email y delegar en studentService.deleteStudent (404/mensaje si no existe)
     async deleteStudent(request: Request, response: Response){
-        throw new Error("Not implemented");
+        try {
+            const email = request.params.email;
+            if (typeof email !== "string") {
+                 response.status(400).json({ message: "se tiene que poner un email valido" });
+                    return;
+            }
+            const deletedStudent = await studentService.deleteStudent(email);
+            if (!deletedStudent) {
+                response.status(404).json({ message: `User ${email} not found` });
+                 return;
+            }
+
+            response.json({ message: `User ${email} eliminado exito` });
+        } catch (error) {
+            response.status(500).json(error);
+        }
     }
 }
 
