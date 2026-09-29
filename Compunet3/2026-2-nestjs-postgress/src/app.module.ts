@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { StudentModule } from './student/student.module.js';  
+import { UserModule } from './user/user.module.js';
 
 
 
@@ -20,6 +21,7 @@ import { StudentModule } from './student/student.module.js';
       synchronize: true // solo usarla en ambientes bajos, no usar en produccion
     }),
     StudentModule,
+    UserModule,
     
   ],
   controllers: [],
