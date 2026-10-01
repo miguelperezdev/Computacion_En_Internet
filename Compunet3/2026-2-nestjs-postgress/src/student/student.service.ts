@@ -7,8 +7,8 @@ import { DataSource, Repository } from 'typeorm';
 import { isUUID } from 'class-validator';
 import { Student } from './entities/student.entity.js';
 import { Grades } from './entities/grades.entity.js';
-import { CreateStudentDto } from './dto/create_student.dto.js';
-import { UpdateStudentDto } from './dto/update-student-dto.js';
+import { CreateStudentDto } from './dto/create-student.dto.js';
+import { UpdateStudentDto } from './dto/update-student.dto.js';
 
 @Injectable()
 export class StudentService {

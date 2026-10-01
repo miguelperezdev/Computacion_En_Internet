@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, Query, Param } from '@nestjs/common';
 import { StudentService } from './student.service.js';
-import { CreateStudentDto } from './dto/create_student.dto.js';
+import { CreateStudentDto } from './dto/create-student.dto.js';
 import { PaginationDto } from './dto/pagination.dto.js';
 
 @Controller('student')
