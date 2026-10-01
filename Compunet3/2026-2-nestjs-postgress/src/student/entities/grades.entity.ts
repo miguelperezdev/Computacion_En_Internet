@@ -8,7 +8,7 @@ export class Grades {
     id:string;
     @Column("text")
     subject:string;
-    @Column("text")
+    @Column("int")
     grade:number;
     @Column("text")
     studentId:string;

@@ -12,8 +12,7 @@ export class Student {
     name: string;
 
     @Column({
-        type: "int",
-        unique: true
+        type: "int"
     })
     age: number;
 
@@ -31,7 +30,8 @@ export class Student {
 
     @Column({
         type: "text",
-        array: true
+        array: true,
+        default: []
     })
     favoriteSubjects: string[];
 
