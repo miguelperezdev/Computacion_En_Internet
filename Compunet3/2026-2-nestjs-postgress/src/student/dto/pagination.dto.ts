@@ -1,17 +1,19 @@
-import { Type } from "class-transformer";
-import { IsOptional, IsPositive, Min } from "class-validator";
+import { Type } from 'class-transformer';
+import { IsInt, IsOptional, Min } from 'class-validator';
 
-export class PaginationDto{
-    @IsOptional()
-    @IsPositive()
-    @Type(() => Number)
-    limit?: number;
+/** Query params de paginación de `GET /api/student`. */
+export class PaginationDto {
+  /** Cantidad de registros a devolver (por defecto 10 en el servicio). */
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Type(() => Number)
+  limit?: number;
 
-    @IsOptional()
-    @IsPositive()
-    @Type(() => Number)
-    @Min(0)
-    skip:number
-
-
+  /** Registros a saltar: 0 significa "empezar desde el principio". */
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  @Type(() => Number)
+  skip?: number;
 }

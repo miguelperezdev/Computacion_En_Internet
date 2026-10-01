@@ -9,6 +9,7 @@ import { Student } from './entities/student.entity.js';
 import { Grades } from './entities/grades.entity.js';
 import { CreateStudentDto } from './dto/create-student.dto.js';
 import { UpdateStudentDto } from './dto/update-student.dto.js';
+import { PaginationDto } from './dto/pagination.dto.js';
 
 @Injectable()
 export class StudentService {
@@ -36,9 +37,9 @@ export class StudentService {
     }
   }
 
-  async findAll(paginationDto: any): Promise<Student[]> {
-    const { limit = 10, offset = 0 } = paginationDto;
-    return this.studentRepository.find({ take: limit, skip: offset });
+  async findAll(paginationDto: PaginationDto): Promise<Student[]> {
+    const { limit = 10, skip = 0 } = paginationDto;
+    return this.studentRepository.find({ take: limit, skip });
   }
 
   async findOne(term: string): Promise<Student> {
@@ -50,12 +51,16 @@ export class StudentService {
         relations: { grades: true },
       });
     } else {
-      const qb = this.studentRepository.createQueryBuilder('student');
-      student = await qb
-        .where('UPPER(student.name) = :name OR student.email = :email', {
-          name: term.toUpperCase(),
-          email: term.toLowerCase(),
-        })
+      student = await this.studentRepository
+        .createQueryBuilder('student')
+        .where(
+          'UPPER(student.name) = :name OR UPPER(student.nickname) = :nickname OR student.email = :email',
+          {
+            name: term.toUpperCase(),
+            nickname: term.toUpperCase(),
+            email: term.toLowerCase(),
+          },
+        )
         .leftJoinAndSelect('student.grades', 'grades')
         .getOne();
     }
@@ -66,18 +71,14 @@ export class StudentService {
     return student;
   }
 
-  async updateStudent(email: string, updateStudentDto: UpdateStudentDto) {
+  async updateStudent(
+    term: string,
+    updateStudentDto: UpdateStudentDto,
+  ): Promise<Student> {
     const { grades, ...studentDetails } = updateStudentDto;
 
-    // Buscar por email (no por id, porque el controller te pasa el email)
-    const student = await this.studentRepository.findOne({
-      where: { email },
-      relations: { grades: true },
-    });
-
-    if (!student) {
-      throw new NotFoundException(`Estudiante con email ${email} no encontrado`);
-    }
+    // findOne resuelve por id (UUID), name, nickname o email y trae las grades
+    const student = await this.findOne(term);
 
     const queryRunner = this.dataSource.createQueryRunner();   // ← dataSource con S mayúscula
     await queryRunner.connect();
@@ -102,6 +103,30 @@ export class StudentService {
     } finally {
       await queryRunner.release();
     }
+  }
+
+  /**
+   * Elimina un estudiante (buscado por id, name, nickname o email).
+   * Sus notas desaparecen con él por el `onDelete: "CASCADE"` de la relación.
+   */
+  async removeStudent(term: string): Promise<{ id: string; deleted: boolean }> {
+    const student = await this.findOne(term);
+    const { id } = student;
+
+    await this.studentRepository.remove(student);
+    return { id, deleted: true };
+  }
+
+  /** Borra todos los estudiantes. Sus notas caen por el CASCADE. */
+  async deleteAllStudents(): Promise<boolean> {
+    // TypeORM rechaza delete({}) (criteria vacío): se borra por ids.
+    const students = await this.studentRepository.find({
+      select: { id: true },
+    });
+    if (students.length > 0) {
+      await this.studentRepository.delete(students.map(({ id }) => id));
+    }
+    return true;
   }
 
   private handleException(error: any): never {
