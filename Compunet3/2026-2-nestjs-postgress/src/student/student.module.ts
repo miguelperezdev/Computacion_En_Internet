@@ -11,5 +11,6 @@ import { Grades } from './entities/grades.entity.js';
     TypeOrmModule.forFeature([Student, Grades])
   ],
   providers: [StudentService],
+  exports: [StudentService],
 })
 export class StudentModule {}
