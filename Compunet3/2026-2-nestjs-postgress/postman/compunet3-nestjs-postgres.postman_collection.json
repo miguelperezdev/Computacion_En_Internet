@@ -98,7 +98,152 @@
                 }
               ]
             },
-            "description": "Busca un estudiante por id (si `term` es un UUID válido) o por name/nickname (comparación case-insensitive). Incluye sus grades en la respuesta."
+            "description": "Busca un estudiante por id (si `term` es un UUID válido) o por name/nickname/email (comparación case-insensitive). Incluye sus grades en la respuesta."
+          },
+          "response": []
+        },
+        {
+          "id": "7c1f9a62-4d3e-4b1a-9f21-0e5b8c7d6a01",
+          "name": "Actualizar estudiante (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"age\": 22,\n  \"grades\": [\n    { \"subject\": \"Math\", \"grade\": 95 },\n    { \"subject\": \"History\", \"grade\": 85 },\n    { \"subject\": \"Physics\", \"grade\": 80 }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/student/:term",
+              "host": ["{{baseUrl}}"],
+              "path": ["student", ":term"],
+              "variable": [
+                {
+                  "key": "term",
+                  "value": "{{studentTerm}}",
+                  "description": "UUID (o name/nickname/email) del estudiante a actualizar"
+                }
+              ]
+            },
+            "description": "Actualiza los campos enviados (UpdateStudentDto: todos opcionales). Si el body incluye `grades`, se **reemplazan** todas las notas del estudiante por las nuevas. Requiere `Content-Type: application/json`."
+          },
+          "response": []
+        },
+        {
+          "id": "8d2e0b73-5e4f-4c2b-0a32-1f6c9d8e7b02",
+          "name": "Eliminar estudiante (DELETE)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/student/:term",
+              "host": ["{{baseUrl}}"],
+              "path": ["student", ":term"],
+              "variable": [
+                {
+                  "key": "term",
+                  "value": "{{studentTerm}}",
+                  "description": "UUID (o name/nickname/email) del estudiante a eliminar"
+                }
+              ]
+            },
+            "description": "Elimina el estudiante y, por el `onDelete: \"CASCADE\"` de la relación, también sus notas. Devuelve `{ id, deleted: true }`."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "9e3f1c84-6f5a-4d3c-1b43-2a7d0e9f8c03",
+      "name": "User",
+      "description": "Endpoints del módulo user (registro e inicio de sesión)",
+      "item": [
+        {
+          "id": "a04f2d95-7a6b-4e4d-2c54-3b8e1f0a9d04",
+          "name": "Registrarse (signup)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ana@example.com\",\n  \"password\": \"secreto123\",\n  \"fullName\": \"Ana Pérez\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/user/signup",
+              "host": ["{{baseUrl}}"],
+              "path": ["user", "signup"]
+            },
+            "description": "Crea un usuario. La contraseña se guarda hasheada con bcrypt. `password` debe tener entre 8 y 16 caracteres. La respuesta nunca incluye la contraseña."
+          },
+          "response": []
+        },
+        {
+          "id": "b15a3ea6-8b7c-4f5e-3d65-4c9f2a1b0e05",
+          "name": "Iniciar sesión (auth)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ana@example.com\",\n  \"password\": \"secreto123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/user/auth",
+              "host": ["{{baseUrl}}"],
+              "path": ["user", "auth"]
+            },
+            "description": "Valida las credenciales con bcrypt y devuelve el usuario (sin contraseña). Email inexistente → 404; contraseña incorrecta → 401."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "c26b4fb7-9c8d-4a6f-4e76-5d0a3b2c1f06",
+      "name": "Seed",
+      "description": "Endpoints del módulo seed (datos de prueba)",
+      "item": [
+        {
+          "id": "d37c5a08-0a9e-4b7a-5f87-6e1b4c3d2a07",
+          "name": "Cargar datos de prueba (seed)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/seed",
+              "host": ["{{baseUrl}}"],
+              "path": ["seed"]
+            },
+            "description": "Borra todos los estudiantes existentes y carga los de prueba (40 estudiantes con 81 notas). Devuelve `{ \"message\": \"SEED EXECUTED\" }`."
           },
           "response": []
         }
