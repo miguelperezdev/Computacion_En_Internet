@@ -152,6 +152,7 @@ gradle.log
 # Postgres local
 postgres-data/
 pgdata/
+Compunet3/2026-2-nestjs-postgress/postgres/
 *.sql.gz
 *.dump
 *.sqlite
