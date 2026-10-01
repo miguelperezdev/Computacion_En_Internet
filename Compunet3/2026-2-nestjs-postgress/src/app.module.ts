@@ -12,8 +12,9 @@ import { UserModule } from './user/user.module.js';
     TypeOrmModule.forRoot({
       type:"postgres",
       host: process.env.DB_HOST,
-      //PASS DE STRING A NUMBER PARA ESO ES EL +!
-      port: +!process.env.DB_PORT,
+      // La variable llega como string: el + unario la convierte a número
+      // (con +! se negaba antes y el puerto quedaba siempre en 0).
+      port: +(process.env.DB_PORT ?? 5432),
       database: process.env.DB_NAME,
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
@@ -22,7 +23,6 @@ import { UserModule } from './user/user.module.js';
     }),
     StudentModule,
     UserModule,
-    
   ],
   controllers: [],
   providers: [],
