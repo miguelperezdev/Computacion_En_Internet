@@ -9,5 +9,7 @@ export default defineConfig({
     globals: true,
     root: './',
     include: ['**/*.spec.ts'],
+    // todavía no hay pruebas unitarias: que `npm test` no falle por eso
+    passWithNoTests: true,
   },
 });
