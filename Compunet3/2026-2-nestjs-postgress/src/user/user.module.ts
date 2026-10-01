@@ -5,8 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity.js';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { config } from 'process'; 
+import { ConfigModule, ConfigService } from '@nestjs/config'; 
 
 @Module({
   controllers: [UserController],
@@ -26,7 +25,7 @@ import { config } from 'process';
     }
    })
   ],
-  providers: [UserService, ConfigService],
+  providers: [UserService],
   exports: [TypeOrmModule, PassportModule, JwtModule],
 })
 export class UserModule {}
