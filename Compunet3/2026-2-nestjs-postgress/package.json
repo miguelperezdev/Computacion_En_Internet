@@ -1,10 +1,10 @@
 {
   "name": "2026-2-nestjs-postgress",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
   "private": true,
+  "description": "Proyecto base para las prácticas del curso **Computación en Internet 3**. Es una API REST construida con [NestJS](https://nestjs.com/) que se conecta a una base de datos **PostgreSQL** usando **TypeORM**.",
   "license": "UNLICENSED",
+  "author": "",
   "type": "module",
   "scripts": {
     "build": "nest build",
@@ -40,7 +40,6 @@
     "pg": "^8.23.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
-    "start": "^5.1.0",
     "typeorm": "^1.1.1"
   },
   "devDependencies": {
