@@ -1,7 +1,18 @@
 import { Navbar } from "@/components/Navbar"
 import { students } from "@/data/students.mock"
 
-
+// se agg para que maneje la barra de navegacion, se puede agregar mas propiedades si se desea
+import { NavLinks } from "@/interfaces/nav-links.interface"
+const navLinks : NavLinks[] = [
+    {
+        href:"students",
+        title:"Students"
+    },
+    {
+        href:"about",
+        title:"About"
+    }
+]
 export default function Home() {
 
     // const students = [
@@ -46,7 +57,7 @@ export default function Home() {
     return (
         <div className="min-h-screen bg-black text-white">
 
-            <Navbar />
+            <Navbar links={navLinks}/>
 
             {/* MAIN */}
             <main className="flex flex-col items-center justify-center gap-6 py-12">
