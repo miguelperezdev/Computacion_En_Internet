@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Computación en Internet — Proyecto Next.js
 
-## Getting Started
+Frontend de ejemplo construido con **Next.js 15+ (App Router)**. Muestra una tabla de
+estudiantes con datos fabricate en `data/students.mock.ts` y componentes reutilizables
+(`StudentTable`, `StudentRow`, `StudentBadge`, `Navbar`).
 
-First, run the development server:
+## Stack
+
+- **Next.js** `16.4.3`
+- **React** `19.3.0`
+- **TypeScript** `^5`
+- **Tailwind CSS** `^4` + `@tailwindcss/turbopack`
+- **shadcn/ui** y `class-variance-authority` (disponibles en `package.json`)
+
+## Ejecutar
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install      # si no estás dentro del entorno del proyecto
+npm run dev      # servidor de desarrollo en http://localhost:3000
+npm run build    # compilación de producción
+npm start        # servidor de producción (tras `build`)
+npm run lint     # ESLint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> Nota: este entorno no incluye Node.js. Para correr el proyecto se necesita instalar
+> Node (y luego `npm install` antes de `npm run dev`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Estructura
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+  layout.tsx          # Layout raíz (fuente de metadatos y fuentes)
+  page.tsx            # Página principal: navbar + tabla de estudiantes
+  students/
+    layout.tsx        # Layout de la sección /students
+    page.tsx          # Ruta /students (usa StudentLayout + StudentTable)
+components/
+  students/
+    StudentTable.tsx  # Tabla general (cabecera + filas)
+    StudentRow.tsx    # Una fila de la tabla
+    StudentBadge.tsx  # Badge Active/Inactive
+    StudentRow.tsx    # (se mantiene)
+  Navbar.tsx          # Barra de navegación
+  Brand.tsx           # Logotipo de la app
+data/
+  students.mock.ts    # Datos de ejemplo (arreglo `students`)
+interfaces/
+  student.interface.ts # Tipos Student, Gender, Grade
+  nav-links.interface.ts # Tipo NavLinks
+```
 
-## Learn More
+## Rutas
 
-To learn more about Next.js, take a look at the following resources:
+- `/` — Página principal con navbar y la tabla de estudiantes.
+- `/students` — Sección de estudiantes con su propio layout.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Notas de construcción
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Todos los componentes exportan valores estables (no funciones dentro del retorno)
+  para que el árbol de Vercel/Next no dé warning de "instable".
+- El notebook usa tipos estrictos de TypeScript (`strict: true`), por lo que los
+  imports de `@/` apuntan a `tsconfig.json` (`"paths": { "@/*": ["./*"] }`).
+- Los datos de `students.mock.ts` incluyen `id`, `name`, `age`, `email`, `gender`,
+  `favoriteSubjects`, `grades`, `isActive` y `nickname`; el `StudentTable` los
+  muestra todos en una sola fila por estudiante.
