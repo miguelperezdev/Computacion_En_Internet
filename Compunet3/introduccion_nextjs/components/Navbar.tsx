@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import { Brand } from './Brand'
-import { NavLinks } from '@/interfaces/nav-links.interface'
+import { navLinks } from '@/interfaces/nav-links.interface'
 
 interface NavbarProps {
-  links: NavLinks[]
+  links: navLinks[]
 }
 
 export const Navbar = ({ links }: NavbarProps) => {

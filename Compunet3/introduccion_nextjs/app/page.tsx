@@ -1,11 +1,11 @@
 import { Navbar } from "@/components/Navbar";
 import { StudentTable } from "@/components/students/StudentTable";
 import { students } from "@/data/students.mock";
-import { NavLinks } from "@/interfaces/nav-links.interface";
+import type { navLinks } from "@/interfaces/nav-links.interface";
 
-const navLinks: NavLinks[] = [
+const navLinks: navLinks[] = [
   { href: "students", title: "Students" },
-  { href: "#about", title: "About" },
+  { href: "about", title: "About" },
 ];
 
 export default function Home() {
