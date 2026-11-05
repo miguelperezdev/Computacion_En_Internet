@@ -1,12 +1,11 @@
-import React from "react";
-import { StudentLayout } from "./layout";
-import { StudentTable } from "@/components/students/StudentTable";
+import type { Metadata } from "next";
+import { StudentTableContainer } from "@/components/students/StudentTableContainer";
 import { students } from "@/data/students.mock";
 
-export default function StudentPage() {
-  return (
-    <StudentLayout>
-      <StudentTable students={students} />
-    </StudentLayout>
-  );
+export const metadata: Metadata = {
+  title: "Students",
+};
+
+export default function StudentsPage() {
+  return <StudentTableContainer students={students} />;
 }

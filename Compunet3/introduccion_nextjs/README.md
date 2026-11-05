@@ -1,8 +1,8 @@
 # Computación en Internet — Proyecto Next.js
 
-Frontend de ejemplo construido con **Next.js 15+ (App Router)**. Muestra una tabla de
-estudiantes con datos fabricate en `data/students.mock.ts` y componentes reutilizables
-(`StudentTable`, `StudentRow`, `StudentBadge`, `Navbar`).
+Frontend de ejemplo construido con **Next.js 16 (App Router)**. Muestra una tabla de
+estudiantes con datos de ejemplo en `data/students.mock.ts`, componentes reutilizables
+y un paginador que trabaja con `skip` / `limit`.
 
 ## Stack
 
@@ -10,56 +10,74 @@ estudiantes con datos fabricate en `data/students.mock.ts` y componentes reutili
 - **React** `19.3.0`
 - **TypeScript** `^5`
 - **Tailwind CSS** `^4` + `@tailwindcss/turbopack`
-- **shadcn/ui** y `class-variance-authority` (disponibles en `package.json`)
+- **lucide-react** para iconos
 
 ## Ejecutar
 
 ```bash
-npm install      # si no estás dentro del entorno del proyecto
+npm install      # instalar dependencias
 npm run dev      # servidor de desarrollo en http://localhost:3000
 npm run build    # compilación de producción
 npm start        # servidor de producción (tras `build`)
 npm run lint     # ESLint
 ```
 
-> Nota: este entorno no incluye Node.js. Para correr el proyecto se necesita instalar
-> Node (y luego `npm install` antes de `npm run dev`).
-
 ## Estructura
 
 ```
 app/
-  layout.tsx          # Layout raíz (fuente de metadatos y fuentes)
-  page.tsx            # Página principal: navbar + tabla de estudiantes
+  layout.tsx              # Layout raíz: tema oscuro, navbar y footer
+  page.tsx                # Página principal: tabla paginada + about
+  about/page.tsx          # Ruta /about
   students/
-    layout.tsx        # Layout de la sección /students
-    page.tsx          # Ruta /students (usa StudentLayout + StudentTable)
+    layout.tsx            # Layout de la sección /students
+    page.tsx              # Ruta /students
+
 components/
+  Brand.tsx               # Logotipo de la app
+  Footer.tsx              # Pie de página
+  Navbar.tsx              # Barra de navegación
+  Section.tsx             # Sección reutilizable con título/descripción
   students/
-    StudentTable.tsx  # Tabla general (cabecera + filas)
-    StudentRow.tsx    # Una fila de la tabla
-    StudentBadge.tsx  # Badge Active/Inactive
-    StudentRow.tsx    # (se mantiene)
-  Navbar.tsx          # Barra de navegación
-  Brand.tsx           # Logotipo de la app
-data/
-  students.mock.ts    # Datos de ejemplo (arreglo `students`)
+    StudentTableContainer.tsx  # Estado de paginación + tabla + paginador
+    StudentTable.tsx           # Tabla presentacional
+    StudentRow.tsx             # Una fila de la tabla
+    StudentBadge.tsx           # Badge Active/Inactive
+    StudentSubjects.tsx        # Materias favoritas
+    StudentGrades.tsx          # Notas por materia
+  ui/
+    Pagination.tsx             # Paginador (skip / limit, páginas)
+
+hooks/
+  usePagination.ts        # Hook con skip, limit, página actual y navegación
+
+lib/
+  pagination.ts           # Helpers paginate() y getPaginationMeta()
+  utils.ts                # cn() para combinar clases
+
 interfaces/
-  student.interface.ts # Tipos Student, Gender, Grade
-  nav-links.interface.ts # Tipo NavLinks
+  student.interface.ts    # Tipos Student, Gender, Grade
+  pagination.interface.ts # Tipos PaginationParams y PaginationMeta
+  nav-links.interface.ts  # Tipo NavLink
+
+data/
+  students.mock.ts        # Datos de ejemplo
 ```
+
+## Paginación
+
+`StudentTableContainer` es un Client Component que usa `usePagination` y
+`paginate`. El paginador permite:
+
+- Cambiar de página (primera, anterior, siguiente, última).
+- Elegir `limit` (filas por página): `2`, `3`, `5` o `10`.
+- Ver el `skip` y `limit` actuales junto con el rango mostrado.
+
+La lógica de paginación está separada en `lib/pagination.ts` para poder reutilizarla
+con una API real más adelante.
 
 ## Rutas
 
-- `/` — Página principal con navbar y la tabla de estudiantes.
+- `/` — Página principal con navbar, tabla paginada y sección about.
 - `/students` — Sección de estudiantes con su propio layout.
-
-## Notas de construcción
-
-- Todos los componentes exportan valores estables (no funciones dentro del retorno)
-  para que el árbol de Vercel/Next no dé warning de "instable".
-- El notebook usa tipos estrictos de TypeScript (`strict: true`), por lo que los
-  imports de `@/` apuntan a `tsconfig.json` (`"paths": { "@/*": ["./*"] }`).
-- Los datos de `students.mock.ts` incluyen `id`, `name`, `age`, `email`, `gender`,
-  `favoriteSubjects`, `grades`, `isActive` y `nickname`; el `StudentTable` los
-  muestra todos en una sola fila por estudiante.
+- `/about` — Información del proyecto.

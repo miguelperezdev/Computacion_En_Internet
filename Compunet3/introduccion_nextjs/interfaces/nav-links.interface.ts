@@ -1,6 +1,4 @@
-
-//Esta clase es agg para desarrollar la barra de navegacion, se puede agregar mas propiedades si se desea
-export interface navLinks {
-    href: string ;
-    title: string;
+export interface NavLink {
+  href: string;
+  title: string;
 }

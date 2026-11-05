@@ -1,66 +1,116 @@
-import { Gender, Student } from "@/interfaces/student.interface";
+import { Gender, type Student } from "@/interfaces/student.interface";
 
-export const students: Student [] = [
-
-    {
-        id: "1",
-        name: "Mike",
-        age:19,
-        email:"mike@gmail.com",
-        gender:Gender.Male,
-        favoriteSubjects:["Math","Science"],
-        grades:[
-            {id:"1",subject:"Math",grade:90},
-            {id:"2",subject:"Science",grade:85}
-        ],
-        isActive:false,
-        nickname:"la bestia",
-        
-    },
-    {
-        id: "4",
-        name: "c",
-        age:19,
-        email:"c@gmail.com",
-        gender:Gender.Female,
-        favoriteSubjects:["English","History"],
-        grades:[
-            {id:"3",subject:"English",grade:88},
-            {id:"4",subject:"History",grade:92}
-        ],
-        isActive:true,  
-        nickname:"la bestia",
-       
-        
-    },
-    {
-        id: "2",
-        name: "b",
-        age:19,
-        email:"b@gmail.com",
-        nickname:"la bestia",
-        gender:Gender.Other,
-        favoriteSubjects:["Art","Music"],
-        grades:[
-            {id:"5",subject:"Art",grade:95},
-            {id:"6",subject:"Music",grade:89}
-        ],
-        isActive:true,  
-        
-    },
-    {
-        id: "3",
-        name: "a",
-        age:19,
-        email:"a@gmail.com",
-        nickname:"la bestia",
-        gender:Gender.Male,
-        favoriteSubjects:["Math","Science"],
-        grades:[
-            {id:"7",subject:"Math",grade:80},
-            {id:"8",subject:"Science",grade:75}
-        ],
-        isActive:true,
-        
-    }
-]
+export const students: Student[] = [
+  {
+    id: "1",
+    name: "Mike",
+    age: 19,
+    email: "mike@gmail.com",
+    gender: Gender.Male,
+    favoriteSubjects: ["Math", "Science"],
+    grades: [
+      { id: "1", subject: "Math", grade: 90 },
+      { id: "2", subject: "Science", grade: 85 },
+    ],
+    isActive: false,
+    nickname: "la bestia",
+  },
+  {
+    id: "2",
+    name: "Sofía",
+    age: 20,
+    email: "sofia@gmail.com",
+    gender: Gender.Female,
+    favoriteSubjects: ["English", "History"],
+    grades: [
+      { id: "3", subject: "English", grade: 88 },
+      { id: "4", subject: "History", grade: 92 },
+    ],
+    isActive: true,
+    nickname: "sofi",
+  },
+  {
+    id: "3",
+    name: "Bruno",
+    age: 21,
+    email: "bruno@gmail.com",
+    gender: Gender.Other,
+    favoriteSubjects: ["Art", "Music"],
+    grades: [
+      { id: "5", subject: "Art", grade: 95 },
+      { id: "6", subject: "Music", grade: 89 },
+    ],
+    isActive: true,
+    nickname: "bruno",
+  },
+  {
+    id: "4",
+    name: "Ana",
+    age: 19,
+    email: "ana@gmail.com",
+    gender: Gender.Female,
+    favoriteSubjects: ["Math", "Science"],
+    grades: [
+      { id: "7", subject: "Math", grade: 80 },
+      { id: "8", subject: "Science", grade: 75 },
+    ],
+    isActive: true,
+    nickname: "ani",
+  },
+  {
+    id: "5",
+    name: "Diego",
+    age: 22,
+    email: "diego@gmail.com",
+    gender: Gender.Male,
+    favoriteSubjects: ["Physics", "Math"],
+    grades: [
+      { id: "9", subject: "Physics", grade: 78 },
+      { id: "10", subject: "Math", grade: 91 },
+    ],
+    isActive: false,
+    nickname: "dieguito",
+  },
+  {
+    id: "6",
+    name: "Valentina",
+    age: 20,
+    email: "valentina@gmail.com",
+    gender: Gender.Female,
+    favoriteSubjects: ["Biology", "Chemistry"],
+    grades: [
+      { id: "11", subject: "Biology", grade: 93 },
+      { id: "12", subject: "Chemistry", grade: 87 },
+    ],
+    isActive: true,
+    nickname: "valen",
+  },
+  {
+    id: "7",
+    name: "Andrés",
+    age: 23,
+    email: "andres@gmail.com",
+    gender: Gender.Male,
+    favoriteSubjects: ["History", "Philosophy"],
+    grades: [
+      { id: "13", subject: "History", grade: 84 },
+      { id: "14", subject: "Philosophy", grade: 79 },
+    ],
+    isActive: true,
+    nickname: "andy",
+  },
+  {
+    id: "8",
+    name: "Camila",
+    age: 18,
+    email: "camila@gmail.com",
+    gender: Gender.Other,
+    favoriteSubjects: ["Art", "Design"],
+    grades: [
+      { id: "15", subject: "Art", grade: 98 },
+      { id: "16", subject: "Design", grade: 94 },
+    ],
+    isActive: false,
+    nickname: "cami",
+  },
+];

@@ -1,23 +1,39 @@
-import Link from 'next/link'
-import { Brand } from './Brand'
-import { navLinks } from '@/interfaces/nav-links.interface'
+import Link from "next/link";
+import { Brand } from "./Brand";
+import type { NavLink } from "@/interfaces/nav-links.interface";
+
+const DEFAULT_LINKS: NavLink[] = [
+  { href: "/", title: "Inicio" },
+  { href: "/students", title: "Students" },
+  { href: "/about", title: "About" },
+];
 
 interface NavbarProps {
-  links: navLinks[]
+  links?: NavLink[];
 }
 
-export const Navbar = ({ links }: NavbarProps) => {
+export const Navbar = ({ links = DEFAULT_LINKS }: NavbarProps) => {
   return (
-    <nav className="flex items-center gap-6 bg-gray-900 px-6 py-4 text-slate-300">
-      <Link href="/" className="mr-auto text-lg font-bold text-white">
-        <Brand />
-      </Link>
-
-      {links?.map((link) => (
-        <Link href={link.href} className="hover:text-white" key={link.href}>
-          {link.title}
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur">
+      <nav className="mx-auto flex w-full max-w-6xl items-center gap-6 px-6 py-4 text-sm text-zinc-400">
+        <Link
+          href="/"
+          className="mr-auto flex items-center gap-3 text-base font-semibold text-white"
+        >
+          <Brand />
+          <span className="hidden sm:inline">Computación en Internet</span>
         </Link>
-      ))}
-    </nav>
-  )
-}
+
+        {links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className="transition-colors hover:text-white"
+          >
+            {link.title}
+          </Link>
+        ))}
+      </nav>
+    </header>
+  );
+};

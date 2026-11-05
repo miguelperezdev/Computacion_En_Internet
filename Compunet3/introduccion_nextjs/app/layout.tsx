@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import type { ReactNode } from "react";
 import "./globals.css";
-import { ReactNode } from "react";
+import { Footer } from "@/components/Footer";
+import { Navbar } from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +16,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Computación en Internet",
+  title: {
+    default: "Computación en Internet",
+    template: "%s · Computación en Internet",
+  },
   description: "Proyecto frontend de Computación en Internet",
 };
 
@@ -22,10 +27,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="es"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`dark ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        {children}
+      <body className="flex min-h-full flex-col bg-background text-foreground">
+        <Navbar />
+        <div className="flex flex-1 flex-col">{children}</div>
+        <Footer />
       </body>
     </html>
   );
