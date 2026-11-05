@@ -1,6 +1,7 @@
+import { Suspense } from "react";
 import { Section } from "@/components/Section";
-import { StudentTableContainer } from "@/components/students/StudentTableContainer";
-import { students } from "@/data/students.mock";
+import { StudentTableSkeleton } from "@/components/students/StudentTableSkeleton";
+import { StudentsTableAsync } from "@/components/students/StudentsTableAsync";
 
 export default function Home() {
   return (
@@ -13,8 +14,9 @@ export default function Home() {
           Computación en Internet
         </h1>
         <p className="max-w-2xl text-zinc-400">
-          Demo de una tabla de estudiantes con componentes reutilizables,
-          paginación y soporte para <code>skip</code> / <code>limit</code>.
+          Demo de una tabla de estudiantes consumida desde el backend con axios,
+          componentes reutilizables y paginación con <code>skip</code> /{" "}
+          <code>limit</code>.
         </p>
       </header>
 
@@ -23,14 +25,17 @@ export default function Home() {
         title="Students"
         description="Cambia de página o ajusta el límite de filas para modificar el comportamiento de la tabla."
       >
-        <StudentTableContainer students={students} />
+        <Suspense fallback={<StudentTableSkeleton />}>
+          <StudentsTableAsync />
+        </Suspense>
       </Section>
 
       <Section id="about" title="About this project">
         <p className="max-w-2xl text-zinc-400">
           Aplicación construida con Next.js, React, TypeScript y Tailwind CSS.
-          Los datos vienen de un mock local y la tabla se pagina del lado del
-          cliente usando <code>skip</code> y <code>limit</code>.
+          Los estudiantes se obtienen de <code>API_URL/student</code> usando un
+          servicio con axios y la tabla se pagina en el cliente con{" "}
+          <code>skip</code> y <code>limit</code>.
         </p>
       </Section>
     </main>

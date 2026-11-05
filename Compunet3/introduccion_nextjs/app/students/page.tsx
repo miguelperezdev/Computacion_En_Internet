@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { StudentTableContainer } from "@/components/students/StudentTableContainer";
-import { students } from "@/data/students.mock";
+import { Suspense } from "react";
+import { StudentTableSkeleton } from "@/components/students/StudentTableSkeleton";
+import { StudentsTableAsync } from "@/components/students/StudentsTableAsync";
 
 export const metadata: Metadata = {
   title: "Students",
 };
 
+
+
 export default function StudentsPage() {
-  return <StudentTableContainer students={students} />;
+  return (
+    <Suspense fallback={<StudentTableSkeleton />}>
+      <StudentsTableAsync />
+    </Suspense>
+  );
 }
